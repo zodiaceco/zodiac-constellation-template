@@ -4,6 +4,18 @@ This repo is a **Zodiac constellation**: a TypeScript description of an org's sm
 
 User-facing docs are in `README.md` — read it before suggesting edits to `constellation/`.
 
+## Before you write permissions
+
+- Read https://docs.zodiac.eco/llms.txt (index) and
+  https://docs.zodiac.eco/llms-full.txt (full text) before you write a `custom` entry.
+- Use a `defikit.*` preset if DeFi Kit has one for the protocol and action.
+- If DeFi Kit has no preset, look for a page about the protocol under
+  https://docs.zodiac.eco/developers/roles/.
+- After you change permissions, get the payload without sending it: call `push()`
+  from `@zodiaceco/sdk` with a stub `api.applyConstellation` that keeps the payload.
+- Test each role on a mainnet fork before the owners sign. Send calls that the role
+  must allow and calls that it must block.
+
 ## Project map
 
 - `constellation/index.ts` — entrypoint. **Only exported values get pushed.**
