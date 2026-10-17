@@ -56,9 +56,11 @@ Day-to-day loop after the initial setup: edit the constellation → `bun push`. 
 
 ## Defining a constellation
 
-`constellation/index.ts` is what gets pushed to Zodiac. Start by scoping a constellation to a single workspace and chain — `constellation()` is a global, no import needed:
+`constellation/index.ts` is what gets pushed to Zodiac. Start by scoping a constellation to a single workspace and chain:
 
 ```ts
+import { constellation } from "@zodiaceco/sdk";
+
 const eth = constellation({
   workspace: "Default workspace",
   label: "Backend Operator",
@@ -142,7 +144,7 @@ export const backendRoles = eth.roles["Backend Operator"]({
 
 Only the values you `export` end up in the constellation.
 
-`bun push` runs `pull-org` first (via the `prepush` hook), walks your exports, sends the spec to Zodiac, and opens your browser to review the diff and sign the transactions.
+`bun push` runs `pull` first (via the `prepush` hook), walks your exports, sends the spec to Zodiac, and opens your browser to review the diff and sign the transactions.
 
 ### Roles and permissions
 
@@ -158,6 +160,8 @@ constellation/roles/backend_operator/
 Members are an array of addresses, user accessors, or node references — anything that resolves to an address is accepted:
 
 ```ts
+import type { Members } from "@zodiaceco/sdk";
+
 export default [
   "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
   eth.user["alice"],
@@ -168,6 +172,7 @@ export default [
 A role's `permissions` is a list of **entries**. Each entry is one thing the role may do, and each carries a `label` that names it as a single card in the Zodiac UI — labels never reach the chain.
 
 ```ts
+import { allow, type Permissions } from "@zodiaceco/sdk";
 import { custom, defikit, swap, transfer } from "@zodiaceco/sdk/actions";
 
 export default [
@@ -231,6 +236,8 @@ export const usdm_user_payouts = {
 
 ```ts
 // constellation/roles/<role>/permissions.ts
+import { allow, c } from "@zodiaceco/sdk";
+
 allow.megaeth.usdm.transfer(undefined, c.withinAllowance("usdm_user_payouts"));
 ```
 
@@ -261,5 +268,5 @@ allow.eth.susds["deposit(uint256,address)"](
 | `bun pull`           | Refresh codegen — both org data and contract ABIs. On first run, also authorizes this directory (mints an API key, writes `.env`) and scaffolds `zodiac.config.ts`. |
 | `bun pull-org`       | Just the org data (users, accounts)                                                                                                                                 |
 | `bun pull-contracts` | Just the contract ABIs and `allow` kit types — run this after you add a contract to `zodiac.config.ts`                                                              |
-| `bun push`           | Send the constellation to Zodiac and open the review URL. Runs `pull-org` first so you push against fresh org state.                                                |
+| `bun push`           | Send the constellation to Zodiac and open the review URL. Runs `pull` first so you push against fresh org state and contracts.                                      |
 | `bun format`         | Prettier across the repo                                                                                                                                            |

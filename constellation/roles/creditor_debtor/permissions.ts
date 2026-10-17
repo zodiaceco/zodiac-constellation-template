@@ -1,3 +1,4 @@
+import type { Permissions } from "@zodiaceco/sdk";
 import { defikit } from "@zodiaceco/sdk/actions";
 
 // A DeFi Kit entry is nothing but its parameters and a label: the permissions

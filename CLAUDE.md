@@ -14,7 +14,6 @@ User-facing docs are in `README.md` — read it before suggesting edits to `cons
   A permission draws on one by naming its key: `c.withinAllowance("usdm_user_payouts")`.
 - `zodiac.config.ts` — contracts the `allow` kit should know about.
 - `.zodiac/` — generated codegen; **never edit by hand**. Re-run `bun pull` (or `bun pull-org` / `bun pull-contracts`) to refresh.
-- `.lib/` — internal helpers (push script, type plumbing, globals).
 
 ## Conventions
 
@@ -23,6 +22,6 @@ User-facing docs are in `README.md` — read it before suggesting edits to `cons
   the constellation is deployed, so a stored revision never carries a copy of
   what a preset meant on the day it was written.
 
-- `constellation`, `allow`, `c`, `ref` are **globals** (set up in `.lib/globals.ts`). Don't import them.
+- Import `constellation`, `allow`, `c` and the `Members` / `Permissions` types from `@zodiaceco/sdk`, the entries from `@zodiaceco/sdk/actions`.
 - After editing `zodiac.config.ts` (contracts) or anything that changes referenced accounts/users, run `bun pull` so the generated types match.
 - Use Bun: `bun install`, `bun run <script>`, `bun <file.ts>`. Bun auto-loads `.env`.

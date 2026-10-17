@@ -1,3 +1,4 @@
+import { allow, c, type Permissions } from "@zodiaceco/sdk";
 import { custom } from "@zodiaceco/sdk/actions";
 import config from "../../../zodiac.config";
 
