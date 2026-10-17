@@ -2,6 +2,8 @@
 
 Your organisation's onchain accounts, roles, and permissions as code.
 
+> **Starting a new project?** Run `npm create @zodiaceco@latest my-org`. It sets up this template in `my-org`, installs it and connects it to your Zodiac org. The rest of this README is for the project you then have. Cloning this repository, or GitHub's "Use this template", gives you the same files.
+
 ## What's a Zodiac constellation?
 
 A **constellation** is a declarative description of an organisation's smart account graph: which Safes you operate, what roles each one delegates, who's allowed to do what, and how the pieces are wired together.
