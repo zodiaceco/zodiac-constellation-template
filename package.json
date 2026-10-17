@@ -12,7 +12,7 @@
     "pull-org": "zodiac pull-org",
     "pull-contracts": "zodiac pull-contracts",
     "prepush": "zodiac pull",
-    "push": "bun --bun zodiac push"
+    "push": "zodiac push"
   },
   "dependencies": {
     "@zodiaceco/sdk": "^2.8.0"
