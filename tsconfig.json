@@ -10,15 +10,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
     "typeRoots": ["./node_modules/@types"],
-    "lib": ["ES2023"],
-    "paths": {
-      "@/lib": ["./.lib/index.ts"]
-    }
+    "lib": ["ES2023"]
   },
-  "include": [
-    "constellation/**/*",
-    "zodiac.config.ts",
-    ".lib/**/*",
-    ".zodiac/**/*"
-  ]
+  "include": ["constellation/**/*", "zodiac.config.ts", ".zodiac/**/*"]
 }

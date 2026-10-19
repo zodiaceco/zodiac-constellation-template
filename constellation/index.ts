@@ -1,30 +1,25 @@
-import { backend_operator } from "./roles";
-import { usdm_user_payouts } from "./allowances";
+import { constellation } from "@zodiaceco/sdk";
+import { treasury_ops } from "./roles";
 
-const mega = constellation({
+const eth = constellation({
   workspace: "Default workspace",
-  label: "Backend Operator",
-  chain: 4326, // megaeth
+  label: "Treasury",
+  chain: 1, // Ethereum
 });
 
-const backendSafe = mega.safe["Backend Safe"]({
+// A new Safe: replace the owner with your signers, then push.
+export const treasury = eth.safe["Treasury"]({
   nonce: 0n,
-  threshold: 2,
-  owners: [
-    "0xcAF075b4102d96CdF9Bc5A2cEDb170a8b69697E8",
-    "0x33D06d961f988017910c5F2bb64C33356f02CC4f",
-    "0xD84681429FB6aB3D6BA887Adf82D462b43b7850a",
-  ],
-  modules: [mega.roles["Backend Operator"]],
+  threshold: 1,
+  owners: ["0x0000000000000000000000000000000000000001"],
+  modules: [eth.roles["Treasury Roles"]],
 });
 
-const backendRoles = mega.roles["Backend Operator"]({
+// A Roles mod on the Safe, holding the roles under `./roles`.
+export const treasuryRoles = eth.roles["Treasury Roles"]({
   nonce: 0n,
-  target: "0x45C1fF5B82338C5085c22745f7D18d559511B436",
-  owner: "0x45C1fF5B82338C5085c22745f7D18d559511B436",
-  avatar: "0x45C1fF5B82338C5085c22745f7D18d559511B436",
-  roles: { backend_operator },
-  allowances: { usdm_user_payouts },
+  target: treasury,
+  owner: treasury,
+  avatar: treasury,
+  roles: { treasury_ops },
 });
-
-export { backendSafe, backendRoles };
